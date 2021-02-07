@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
-import { CustomerForm, HeroForm } from '../components/'
-import SuperHeroImage from'../assets/marvel_superheroes.jpg';
+import React from 'react';
+import SuperHeroImage from '../assets/marvel_superheroes2.jpg';
 import { Link } from 'react-router-dom'
-import { AppBar, Toolbar, Grid, Typography, makeStyles } from "@material-ui/core";
-
+import { AppBar, Toolbar, Grid, Typography, makeStyles, IconButton } from "@material-ui/core";
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos'
 const useStyles = makeStyles((theme) => ({
 	root: {
 		flexGrow: 1,
@@ -16,10 +15,9 @@ const useStyles = makeStyles((theme) => ({
 		marginRight: theme.spacing(2),
 	},
 	title: {
+		flexGrow: 1,
 		textAlign: 'center',
 		fontWeight: 600,
-        cursor: 'pointer',
-        color: 'white',
 	},
 	paperTitle: {
 		flexGrow: 1,
@@ -37,26 +35,29 @@ const useStyles = makeStyles((theme) => ({
 	},
 	superHeroImg: {
 		width: "100%",
+	},
+	backBtn: {
+		color: 'white'
 	}
 }));
 
 export default function SummaryPage() {
 	const classes = useStyles();
-	const [openDialog, setOpenDialog] = useState(false);
-
-	const handleClickOpen = () => {
-		setOpenDialog(true);
-	};
 
 	return (
 		<div className={classes.root}>
-			<AppBar className={classes.appBar} position="static">
+				<AppBar className={classes.appBar} position="static">
 				<Toolbar>
-                <Link to="/home">
-                <Typography variant="h6" className={classes.title}>
+
+				<Link to="/home">
+				<IconButton edge="start" className={classes.backBtn} color="inherit" aria-label="menu">
+      <ArrowBackIosIcon  />
+    </IconButton>
+        </Link>
+
+					<Typography variant="h6" className={classes.title}>
 					Uber for Supers 
 					</Typography>
-                        </Link>
 				</Toolbar>
 			</AppBar>
 			<div className={classes.root}>

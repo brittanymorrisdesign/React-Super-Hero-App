@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import CloseIcon from '@material-ui/icons/Close';
-import { useFormik } from 'formik';
 import HeroesTable from "./Table"
-import * as yup from "yup";
 import useAxios from "axios-hooks";
 import { Link } from 'react-router-dom'
 import { Slide, IconButton, AppBar, Toolbar, Dialog, Typography, Button, makeStyles } from "@material-ui/core";
@@ -38,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
         color: '#4485A4',
         backgroundColor: 'white',
-  },
+    },
   },
   squadTitle: {
     textAlign: 'center',
@@ -53,31 +51,11 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const validationSchema = yup.object({
-  name: yup
-    .string('Enter your name')
-    .email('Enter a valid name')
-    .required('Your name is required'),
-  phone: yup
-    .string('Enter your phone number')
-    .min(7, 'Your number should be of minimum 7 characters length')
-    .required('Your number is required'),
-  email: yup
-    .string('Enter your email')
-    .email('Enter a valid email')
-    .required('Email is required'),
-  zip: yup
-    .string('Enter your zip code')
-    .min(5, 'Zip Code should be of minimum 5 characters length')
-    .max(5, 'Zip Code should be of maximum 5 characters length')
-    .required('Zip Code is required'),
-});
-
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function HeroForm() {
+export default function HeroForm(selectedName) {
 
   const classes = useStyles();
   const [open, setOpen] = useState(false);
@@ -89,28 +67,14 @@ export default function HeroForm() {
   const handleClose = () => {
     setOpen(false);
   };
-
-  const formik = useFormik({
-    initialValues: {
-      name: '',
-      phone: '',
-      email: '',
-      zip: '',
-    },
-    validationSchema: validationSchema,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 4));
-    },
-  });
-
   const [{ data: heroData, loading: loadingHeroData }] = useAxios(
     'https://mdn.github.io/learning-area/javascript/oojs/json/superheroes.json',
   );
 
   useEffect(() => {
-    heroData && setData(heroData);
+    heroData && setData(heroData)
 }, [heroData]);
-console.log(data)
+
   return (
     <div>
      <Button className={classes.continueBtn} variant="outlined" color="primary" onClick={handleClickOpen}>
@@ -137,9 +101,12 @@ console.log(data)
                 </div>
       <HeroesTable props={data.members} />
     </div>
-    <Link to="/summary">
-    <Button className={classes.summaryBtn} variant="outlined" color="primary">
-    View Summary
+    <Link to={{
+            pathname: "/summary",
+            selectedName
+          }}>
+    <Button className={classes.summaryBtn}  variant="outlined" color="primary">
+      View Summary
       </Button>
         </Link>
       </Dialog>

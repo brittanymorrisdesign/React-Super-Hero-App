@@ -1,8 +1,9 @@
-import React from 'react';
+import React from "react";
 import SuperHeroImage from '../assets/marvel_superheroes2.jpg';
 import { Link } from 'react-router-dom'
 import { AppBar, Toolbar, Grid, Typography, makeStyles, IconButton } from "@material-ui/core";
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos'
+
 const useStyles = makeStyles((theme) => ({
 	root: {
 		flexGrow: 1,
@@ -38,11 +39,24 @@ const useStyles = makeStyles((theme) => ({
 	},
 	backBtn: {
 		color: 'white'
-	}
+	},
+	squadTitle: {
+		textAlign: 'center',
+		fontSize: '30px',
+		marginTop: '20px',
+		fontWeight: 600,
+	  },
+	  secondaryTitle: {
+		textAlign: 'center',
+		fontSize: '20px',
+		marginTop: '20px'
+	  }
 }));
 
-export default function SummaryPage() {
+export default function SummaryPage(props) {
 	const classes = useStyles();
+	 const userInfo = props.location.selectedName || {}
+
 
 	return (
 		<div className={classes.root}>
@@ -66,8 +80,12 @@ export default function SummaryPage() {
 					<Typography className={classes.paperTitle}>Summary Info</Typography>
 						<img src={SuperHeroImage} className={classes.superHeroImg} alt="superHeroImage"/>
 					</Grid>
-                    <Typography className={classes.summaryInfo}>This is a new page that will display the information input by the user in the form. There should be a summary of the customer information from the "Customer Form" and a summary of all of the heroes and quantities selected, including heroes with a quantity of 0.
-                    At the bottom of this page, there should be a total of the number of heroes selected and the number of unique powers. For example, if a user selects 2 "Molecule Man" heroes, the total of heroes would be 2, and the total of powers would be 3.</Typography>
+					
+					 <div className={classes.squadTitle}>{userInfo.selectedName.name}</div>
+              <div className={classes.secondaryTitle}>{userInfo.selectedName.email}</div>
+              <div className={classes.secondaryTitle}>{userInfo.selectedName.phone}</div>
+              <div className={classes.secondaryTitle}>{userInfo.selectedName.zip}</div>
+
 				</Grid>
 			</div>
 		</div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -50,7 +50,6 @@ const useStyles = makeStyles((theme) => ({
 const validationSchema = yup.object({
   name: yup
     .string('Enter your name')
-    .email('Enter a valid name')
     .required('Your name is required'),
   phone: yup
     .string('Enter your phone number')
@@ -71,10 +70,11 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function CustomerForm(props) {
+export default function CustomerForm({ onNameUpdate }) {
 
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -94,8 +94,11 @@ export default function CustomerForm(props) {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 4));
+      onNameUpdate(values)
+      handleClose()
     },
   });
+
 
   return (
     <div>

@@ -84,7 +84,6 @@ export default function HeroesTable(props) {
     });
     setRows(newRows);
   };
-  console.log(props)
 
   const onRevert = id => {
     const newRows = rows.props.map(row => {

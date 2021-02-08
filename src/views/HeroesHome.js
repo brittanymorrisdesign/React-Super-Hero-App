@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { CustomerForm, HeroForm } from '../components/'
 import SuperHeroImage from'../assets/marvel_superheroes.jpg';
-import { AppBar, Toolbar, Card, CardActionArea, CardActions, CardContent, CardMedia, Grid, Typography, makeStyles } from "@material-ui/core";
+import { AppBar, Toolbar, Card, CardActionArea, CardActions, CardContent, Grid, Typography, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -54,10 +54,15 @@ const useStyles = makeStyles((theme) => ({
 export default function HeroesHome() {
 	const classes = useStyles();
 	const [openDialog, setOpenDialog] = useState(false);
+	const [selectedName, setSelectedName] = useState();
 
 	const handleClickOpen = () => {
 		setOpenDialog(true);
 	};
+
+	const updateName = (name) => {
+		setSelectedName(name);
+	}
 
 	return (
 		<div className={classes.root}>
@@ -88,7 +93,7 @@ export default function HeroesHome() {
 							</CardActionArea>
 							<CardActions className={classes.cardActions}>
 								{ handleClickOpen && (
-                					<CustomerForm setOpen={setOpenDialog}/>
+                					<CustomerForm onNameUpdate={updateName} setOpen={setOpenDialog}/>
             					)}
 							</CardActions>
 						</Card>
@@ -107,7 +112,7 @@ export default function HeroesHome() {
 							</CardActionArea>
 							<CardActions className={classes.cardActions}>
 							{ handleClickOpen && (
-                					<HeroForm setOpen={setOpenDialog}/>
+                					<HeroForm selectedName={selectedName} setOpen={setOpenDialog}/>
             					)}
 							</CardActions>
 						</Card>

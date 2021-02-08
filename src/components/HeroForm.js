@@ -91,7 +91,7 @@ export default function HeroForm(selectedName) {
             </IconButton>
           </Toolbar>
         </AppBar>
-        {loadingHeroData ? (
+            {loadingHeroData ? (
                                 <CircularProgress style={{ marginLeft: "70px", marginTop: "20px" }} />
                             ) : (
                               <>
@@ -114,7 +114,7 @@ export default function HeroForm(selectedName) {
                     </Button>
                       </Link>
                       </>
-                            )}
+                  )}
       </Dialog>
     </div>
   );

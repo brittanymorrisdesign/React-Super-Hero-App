@@ -18,7 +18,6 @@ const useStyles = makeStyles({
   }
 });
 
-
 const CustomTableCell = ({ row, quantity, onChange }) => {
     const classes = useStyles();
     const { isEditMode } = row;
@@ -43,7 +42,10 @@ const CustomTableCell = ({ row, quantity, onChange }) => {
 export default function HeroesTable({superHeroData}) {
 
   const [rows, setRows] = useState();
-  
+  const [searched, setSearched] = useState("");
+  const [previous, setPrevious] = useState({});
+  const classes = useStyles();
+
   // Add Quantity
   superHeroData.forEach(function(q) {
     q.quantity = 0;
@@ -53,16 +55,9 @@ export default function HeroesTable({superHeroData}) {
     superHeroData && setRows(superHeroData)
   }, [superHeroData]);
 
-  const [searched, setSearched] = useState("");
-  const [previous, setPrevious] = useState({});
-  const classes = useStyles();
-
   const requestSearch = (searchedVal) => {
     const filteredRows = rows.props && rows.props.filter((row) => {
-    // const powersArray = rows.props.map(function(item) { return item["powers"]; });
-
       return row.name.toLowerCase().includes(searchedVal.toLowerCase());
-    
     });
     
     setRows(filteredRows);
@@ -74,7 +69,6 @@ export default function HeroesTable({superHeroData}) {
   };
 
   const onToggleEditMode = name => {
-
     setRows(state => {
       return rows.map(row => {
         if (row.name === name) {
@@ -87,16 +81,16 @@ export default function HeroesTable({superHeroData}) {
   };
 
   const onChange = (e, row) => {
-    if (!previous[row.quantity]) {
-      setPrevious(state => ({ ...state, [row.quantity]: row }));
+    if (!previous[row.name]) {
+      setPrevious(state => ({ ...state, [row.name]: row }));
     }
     const value = e.target.value;
-    const name1 = e.target.quantity;
+    const name = e.target.name;
     const { id } = row;
     debugger;
     const newRows = rows.map(row => {
-      if (row.quantity === id) {
-        return { ...row, [name1]: value };
+      if (row.name === id) {
+        return { ...row, [name]: value };
       }
       return row;
     });

@@ -60,11 +60,6 @@ export default function SummaryPage(props) {
 	const classes = useStyles();
 	const userInfo = props.location.selectedName || {}
 
-	
-	if (userInfo.selectedName.name === 'undefined') {
-		return <p>No tasks are listed</p>;
-	}
-
 	return (
 		<div className={classes.root}>
 				<AppBar className={classes.appBar} position="static">
@@ -75,24 +70,20 @@ export default function SummaryPage(props) {
       <ArrowBackIosIcon  />
     </IconButton>
         </Link>
-
 					<Typography variant="h6" className={classes.title}>
-					Uber for Supers 
+						Uber for Supers 
 					</Typography>
 				</Toolbar>
 			</AppBar>
 			<div className={classes.root}>
-			
 					<Typography className={classes.paperTitle}>Summary Info</Typography>
 						<img src={SuperHeroImage} className={classes.superHeroImg} alt="superHeroImage"/>
-				
 					<div className={classes.userContent}>
 				<div className={classes.userTitle}>{userInfo.selectedName.name}</div>
               <div className={classes.secondaryTitle}>{userInfo.selectedName.email}</div>
               <div className={classes.secondaryTitle}>{userInfo.selectedName.phone}</div>
               <div className={classes.secondaryTitle}>{userInfo.selectedName.zip}</div>
 			  </div>
-
 			</div>
 		</div>
 	);

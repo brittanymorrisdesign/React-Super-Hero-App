@@ -47,9 +47,15 @@ export default function HeroesTable(props) {
   const classes = useStyles();
 
   const requestSearch = (searchedVal) => {
+
     const filteredRows = rows.props.filter((row) => {
-      return row.name.toLowerCase().includes(searchedVal.toLowerCase());
+    const powersArray = rows.props.map(function(item) { return item["powers"]; });
+    
+      debugger;
+      return powersArray.powers.toLowerCase().includes(searchedVal.toLowerCase());
+    
     });
+    
     setRows(filteredRows);
   };
 
@@ -58,46 +64,48 @@ export default function HeroesTable(props) {
     requestSearch(searched);
   };
 
-  const onToggleEditMode = id => {
+  const onToggleEditMode = name => {
     setRows(state => {
       return rows.props.map(row => {
-        if (row.id === id) {
+        if (row.name === name) {
           return { ...row, isEditMode: !row.isEditMode };
         }
         return row;
       });
     });
+    debugger;
   };
 
   const onChange = (e, row) => {
-    if (!previous[row.id]) {
-      setPrevious(state => ({ ...state, [row.id]: row }));
+    if (!previous[row.name]) {
+      setPrevious(state => ({ ...state, [row.name]: row }));
     }
     const value = e.target.value;
     const name = e.target.name;
     const { id } = row;
     const newRows = rows.props.map(row => {
-      if (row.id === id) {
+      if (row.name === id) {
         return { ...row, [name]: value };
       }
       return row;
     });
     setRows(newRows);
+    debugger;
   };
 
-  const onRevert = id => {
+  const onRevert = name => {
     const newRows = rows.props.map(row => {
-      if (row.id === id) {
-        return previous[id] ? previous[id] : row;
+      if (row.name === name) {
+        return previous[name] ? previous[name] : row;
       }
       return row;
     });
     setRows(newRows);
     setPrevious(state => {
-      delete state[id];
+      delete state[name];
       return state;
     });
-    onToggleEditMode(id);
+    onToggleEditMode(name);
   };
 
   return (
@@ -128,13 +136,13 @@ export default function HeroesTable(props) {
                   <>
                     <IconButton
                       aria-label="done"
-                      onClick={() => onToggleEditMode(row.id)}
+                      onClick={() => onToggleEditMode(row.name)}
                     >
                       <DoneIcon />
                     </IconButton>
                     <IconButton
                       aria-label="revert"
-                      onClick={() => onRevert(row.id)}
+                      onClick={() => onRevert(row.name)}
                     >
                       <RevertIcon />
                     </IconButton>
@@ -142,7 +150,7 @@ export default function HeroesTable(props) {
                 ) : (
                   <IconButton
                     aria-label="delete"
-                    onClick={() => onToggleEditMode(row.id)}
+                    onClick={() => onToggleEditMode(row.name)}
                   >
                     <EditIcon />
                   </IconButton>

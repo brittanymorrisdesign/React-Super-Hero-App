@@ -3,7 +3,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import HeroesTable from "./Table"
 import useAxios from "axios-hooks";
 import { Link } from 'react-router-dom'
-import { Slide, IconButton, AppBar, Toolbar, Dialog, Typography, Button, makeStyles } from "@material-ui/core";
+import { Slide, IconButton, AppBar, Toolbar, Dialog, Typography, Button, makeStyles, CircularProgress } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -91,24 +91,31 @@ export default function HeroForm(selectedName) {
             </IconButton>
           </Toolbar>
         </AppBar>
-        <div>
-                <div >
-              <div className={classes.squadTitle}>{data.squadName}</div>
-              <div className={classes.secondaryTitle}>{data.homeTown}</div>
-              <div className={classes.secondaryTitle}>{data.formed}</div>
-              <div className={classes.secondaryTitle}>{data.active}</div>
-              <div className={classes.secondaryTitle}>{data.secretBase}</div>
-                </div>
-      <HeroesTable props={data.members} />
-    </div>
-    <Link to={{
-            pathname: "/summary",
-            selectedName
-          }}>
-    <Button className={classes.summaryBtn}  variant="outlined" color="primary">
-      View Summary
-      </Button>
-        </Link>
+
+        {loadingHeroData ? (
+                                <CircularProgress style={{ marginLeft: "70px", marginTop: "20px" }} />
+                            ) : (
+                              <>
+                              <div>
+                              <div >
+                            <div className={classes.squadTitle}>{data.squadName}</div>
+                            <div className={classes.secondaryTitle}>{data.homeTown}</div>
+                            <div className={classes.secondaryTitle}>{data.formed}</div>
+                            <div className={classes.secondaryTitle}>{data.active}</div>
+                            <div className={classes.secondaryTitle}>{data.secretBase}</div>
+                              </div>
+                    <HeroesTable props={data.members} />
+                  </div>
+                  <Link to={{
+                          pathname: "/summary",
+                          selectedName
+                        }}>
+                  <Button className={classes.summaryBtn}  variant="outlined" color="primary">
+                    Request Heroes
+                    </Button>
+                      </Link>
+                      </>
+                            )}
       </Dialog>
     </div>
   );

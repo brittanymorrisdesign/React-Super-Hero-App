@@ -1,7 +1,7 @@
 import React from "react";
 import SuperHeroImage from '../assets/marvel_superheroes2.jpg';
 import { Link } from 'react-router-dom'
-import { AppBar, Toolbar, Grid, Typography, makeStyles, IconButton } from "@material-ui/core";
+import { AppBar, Toolbar, Typography, makeStyles, IconButton } from "@material-ui/core";
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos'
 
 const useStyles = makeStyles((theme) => ({
@@ -40,23 +40,25 @@ const useStyles = makeStyles((theme) => ({
 	backBtn: {
 		color: 'white'
 	},
-	squadTitle: {
+	userTitle: {
 		textAlign: 'center',
 		fontSize: '30px',
 		marginTop: '20px',
 		fontWeight: 600,
-	  },
-	  secondaryTitle: {
+	},
+	secondaryTitle: {
 		textAlign: 'center',
 		fontSize: '20px',
 		marginTop: '20px'
-	  }
+	},
+	userContent: {
+		justifyContent: 'center'
+	}
 }));
 
 export default function SummaryPage(props) {
 	const classes = useStyles();
 	 const userInfo = props.location.selectedName || {}
-
 
 	return (
 		<div className={classes.root}>
@@ -75,18 +77,17 @@ export default function SummaryPage(props) {
 				</Toolbar>
 			</AppBar>
 			<div className={classes.root}>
-				<Grid container spacing={3}>
-					<Grid item xs={12}>
+			
 					<Typography className={classes.paperTitle}>Summary Info</Typography>
 						<img src={SuperHeroImage} className={classes.superHeroImg} alt="superHeroImage"/>
-					</Grid>
-					
-					 <div className={classes.squadTitle}>{userInfo.selectedName.name}</div>
+				
+					<div className={classes.userContent}>
+				<div className={classes.userTitle}>{userInfo.selectedName.name}</div>
               <div className={classes.secondaryTitle}>{userInfo.selectedName.email}</div>
               <div className={classes.secondaryTitle}>{userInfo.selectedName.phone}</div>
               <div className={classes.secondaryTitle}>{userInfo.selectedName.zip}</div>
+			  </div>
 
-				</Grid>
 			</div>
 		</div>
 	);

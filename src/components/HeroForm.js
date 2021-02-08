@@ -22,11 +22,11 @@ const useStyles = makeStyles((theme) => ({
     border: 'none',
     color: 'white',
     '&:hover': {
-        color: 'white',
-        backgroundColor: '#4485A4',
-        border: 'none'
+      color: 'white',
+      backgroundColor: '#4485A4',
+      border: 'none'
     },
-},
+  },
   summaryBtn: {
     marginLeft: '30px',
     backgroundColor: '#4485A4',
@@ -91,7 +91,6 @@ export default function HeroForm(selectedName) {
             </IconButton>
           </Toolbar>
         </AppBar>
-
         {loadingHeroData ? (
                                 <CircularProgress style={{ marginLeft: "70px", marginTop: "20px" }} />
                             ) : (
@@ -104,7 +103,7 @@ export default function HeroForm(selectedName) {
                             <div className={classes.secondaryTitle}>{data.active}</div>
                             <div className={classes.secondaryTitle}>{data.secretBase}</div>
                               </div>
-                    <HeroesTable props={data.members} />
+                    <HeroesTable superHeroData={data.members} />
                   </div>
                   <Link to={{
                           pathname: "/summary",

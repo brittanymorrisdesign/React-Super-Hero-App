@@ -58,7 +58,12 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SummaryPage(props) {
 	const classes = useStyles();
-	 const userInfo = props.location.selectedName || {}
+	const userInfo = props.location.selectedName || {}
+
+	
+	if (userInfo.selectedName.name === 'undefined') {
+		return <p>No tasks are listed</p>;
+	}
 
 	return (
 		<div className={classes.root}>

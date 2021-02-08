@@ -16,18 +16,18 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 600,
   },
   continueBtn: {
-      textAlign: "0 auto",
-      backgroundColor: '#4485A4',
-      border: 'none',
+    textAlign: "0 auto",
+    backgroundColor: '#4485A4',
+    border: 'none',
+    color: 'white',
+    "&:hover": {
       color: 'white',
-      "&:hover": {
-        color: 'white',
-        backgroundColor: '#4485A4',
-        border: 'none'
+      backgroundColor: '#4485A4',
+      border: 'none'
     },
   },
   form: {
-      margin: "20px",
+    margin: "20px",
   },
   textField: {
     margin: "10px",
@@ -67,7 +67,6 @@ export default function CustomerForm({ onNameUpdate }) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
-
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -90,7 +89,6 @@ export default function CustomerForm({ onNameUpdate }) {
       handleClose()
     },
   });
-
 
   return (
     <div>

@@ -1,2 +1,2 @@
-export { default as CustomerForm } from "./CustomerForm";
-export { default as HeroForm } from "./HeroForm";
+export { default as CustomerForm } from './CustomerForm'
+export { default as HeroForm } from './HeroForm'
